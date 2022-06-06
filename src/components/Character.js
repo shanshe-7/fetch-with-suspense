@@ -3,7 +3,7 @@ import React from "react";
 import { suspensify, getStarWarsCharacters } from "../Helpers/suspensify";
 let initialData = suspensify(getStarWarsCharacters(2));
 
-function Fetch() {
+function Character() {
   const [people, setPeople] = React.useState(initialData);
   const [id, setId] = React.useState();
 
@@ -13,22 +13,24 @@ function Fetch() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          setPeople(suspensify(getStarWarsCharacters(id)));
+
+          if (id > 0) setPeople(suspensify(getStarWarsCharacters(id)));
         }}
       >
         <label htmlFor="id">character id</label>
         <input
           id="id"
           type="number"
+          min="1"
           onChange={(e) => {
             e.preventDefault();
             setId(e.target.value);
           }}
         />
-        <button type="submit">get other people</button>
+        <button type="submit">Get other character</button>
       </form>
     </>
   );
 }
 
-export default Fetch;
+export default Character;
